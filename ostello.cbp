@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ostello" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ostello" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ostello" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<UnitsGlob directory="src" wildcard="" recursive="0" id="2178398971" addToProject="1" />
+		<Unit filename="include/AUTH.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/display_options.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/auth.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/bill.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/display_options">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="src/display_options.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/exit.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/info.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/invalid.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/mess.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/others.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/room.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="src/security.c">
+			<Option compilerVar="CC" />
+			<Option glob="2178398971" />
+		</Unit>
+		<Unit filename="work.txt">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,136 @@
+# depslib dependency file v1.0
+1740554160 source:c:\users\user\documents\ostello\ostello\src\bill.c
+	<stdio.h>
+	<stdlib.h>
+	".././include/bill.h"
+
+1740554160 ude/bill.h"
+
+1740553162 source:c:\users\user\documents\ostello\ostello\src\exit.c
+	<stdio.h>
+
+1740550692 
+
+1740550858 source:c:\users\user\documents\ostello\ostello\src\info.c
+	<stdio.h>
+
+1740550807 source:c:\users\user\documents\ostello\ostello\src\invalid.c
+	<stdio.h>
+
+1740550838 source:c:\users\user\documents\ostello\ostello\src\main.c
+	<stdio.h>
+	"../include/info.h"
+	"../include/bill.h"
+	"../include/mess.h"
+	"../include/room.h"
+	"../include/security.h"
+	"../include/others.h"
+	"../include/exit.h"
+	"../include/invalid.h"
+
+1740550838 e/invalid.h"
+
+1740550899 c:\users\user\documents\ostello\ostello\include\info.h
+
+1740554095 c:\users\user\documents\ostello\ostello\include\bill.h
+
+1740550941 c:\users\user\documents\ostello\ostello\include\mess.h
+
+1740550957 c:\users\user\documents\ostello\ostello\include\room.h
+
+1740550979 c:\users\user\documents\ostello\ostello\include\security.h
+
+1740550997 c:\users\user\documents\ostello\ostello\include\others.h
+
+1740553187 c:\users\user\documents\ostello\ostello\include\exit.h
+
+1740551034 c:\users\user\documents\ostello\ostello\include\invalid.h
+
+1740550635 source:c:\users\user\documents\ostello\ostello\src\mess.c
+	<stdio.h>
+
+1740550712 source:c:\users\user\documents\ostello\ostello\src\others.c
+	<stdio.h>
+
+1740550653 source:c:\users\user\documents\ostello\ostello\src\room.c
+	<stdio.h>
+
+1740550692 source:c:\users\user\documents\ostello\ostello\src\security.c
+	<stdio.h>
+
+1740553150 source:c:\users\user\documents\ostello\ostello\main.c
+	<stdio.h>
+	"./include/info.h"
+	"./include/bill.h"
+	"./include/mess.h"
+	"./include/room.h"
+	"./include/security.h"
+	"./include/exit.h"
+	"./include/invalid.h"
+
+1740553150 /invalid.h"
+
+1742622243 source:/home/mhtayef25/Downloads/ostello/src/bill.c
+	<stdio.h>
+
+1742622121 source:/home/mhtayef25/Downloads/ostello/src/exit.c
+
+1740550858 source:/home/mhtayef25/Downloads/ostello/src/info.c
+	<stdio.h>
+
+1740550807 source:/home/mhtayef25/Downloads/ostello/src/invalid.c
+	<stdio.h>
+
+1740550635 source:/home/mhtayef25/Downloads/ostello/src/mess.c
+	<stdio.h>
+
+1740550712 source:/home/mhtayef25/Downloads/ostello/src/others.c
+	<stdio.h>
+
+1740550653 source:/home/mhtayef25/Downloads/ostello/src/room.c
+	<stdio.h>
+
+1740550692 source:/home/mhtayef25/Downloads/ostello/src/security.c
+	<stdio.h>
+
+1745167064 source:/home/mhtayef25/Downloads/ostello/main.c
+	<stdio.h>
+	"./include/auth.h"
+
+1740550899 /home/mhtayef25/Downloads/ostello/include/info.h
+
+1740550941 /home/mhtayef25/Downloads/ostello/include/mess.h
+
+1740550957 /home/mhtayef25/Downloads/ostello/include/room.h
+
+1740550979 /home/mhtayef25/Downloads/ostello/include/security.h
+
+1740553187 /home/mhtayef25/Downloads/ostello/include/exit.h
+
+1740551034 /home/mhtayef25/Downloads/ostello/include/invalid.h
+
+1740550997 /home/mhtayef25/Downloads/ostello/include/others.h
+
+1742622376 /home/mhtayef25/Downloads/ostello/include/bill.h
+
+1745167937 source:/home/mhtayef25/Downloads/ostello/src/auth.c
+	<stdio.h>
+	<string.h>
+	"../include/display_options.h"
+
+1745166780 /home/mhtayef25/Downloads/ostello/include/display_options.h
+
+1745166886 source:/home/mhtayef25/Downloads/ostello/src/display_options.c
+	<stdio.h>
+	<stdbool.h>
+	"../include/info.h"
+	"../include/others.h"
+	"../include/mess.h"
+	"../include/room.h"
+	"../include/security.h"
+	"../include/exit.h"
+	"../include/invalid.h"
+	"../include/bill.h"
+
+1745167091 /home/mhtayef25/Downloads/ostello/include/auth.h
+

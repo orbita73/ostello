@@ -1,0 +1,6 @@
+#ifndef DISPLAY_OPTIONS_H_INCLUDED
+#define DISPLAY_OPTIONS_H_INCLUDED
+void main_options();
+
+
+#endif // DISPLAY_OPTIONS_H_INCLUDED
