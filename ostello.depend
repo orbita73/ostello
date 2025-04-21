@@ -134,3 +134,74 @@
 
 1745167091 /home/mhtayef25/Downloads/ostello/include/auth.h
 
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\main.c
+	<stdio.h>
+	"./include/auth.h"
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\auth.h
+
+1745225959 source:c:\users\hp\downloads\ostello-main\ostello-main\src\auth.c
+	<stdio.h>
+	<string.h>
+	"../include/display_options.h"
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\display_options.h
+
+1745225626 source:c:\users\hp\downloads\ostello-main\ostello-main\src\bill.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1745227164 source:c:\users\hp\downloads\ostello-main\ostello-main\src\display_options.c
+	<stdio.h>
+	<stdbool.h>
+	"../include/info.h"
+	"../include/others.h"
+	"../include/mess.h"
+	"../include/room.h"
+	"../include/security.h"
+	"../include/exit.h"
+	"../include/invalid.h"
+	"../include/bill.h"
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\info.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\others.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\mess.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\room.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\security.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\exit.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\invalid.h
+
+1745204786 c:\users\hp\downloads\ostello-main\ostello-main\include\bill.h
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\exit.c
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\info.c
+	<stdio.h>
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\invalid.c
+	<stdio.h>
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\mess.c
+	<stdio.h>
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\others.c
+	<stdio.h>
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\room.c
+	<stdio.h>
+
+1745204786 source:c:\users\hp\downloads\ostello-main\ostello-main\src\security.c
+	<stdio.h>
+
+1745221229 source:c:\users\hp\downloads\ostello-main\ostello-main\src\staff.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
