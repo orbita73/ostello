@@ -8,49 +8,53 @@
 #include "../include/exit.h"
 #include "../include/invalid.h"
 #include "../include/bill.h"
+#include "../include/staff.h"
+#include "../include/profile.h"
+#include "../include/auth.h"
+
 void main_options()
 {
-    int i;
-    char *options[] = {"1) Student's Information", "2) Billing", "3) Mess Management", "4) Room Allocation", "5) Security and Access Control", "6) Others", "7) Exit"};
+    int choice;
+    char *options[] = {"Student's Information", "Billing", "Mess Management", "Room Allocation", "Security and Access Control", "Staff", "Exit"};
+    printf("\t\tMain Menu\n");
 
-    printf("\t\tWelcome to Ostello\n\n");
     printf("Available Options: \n");
     bool isValid(int x) {
-        return !(i>0 && i<8);
+        return !(choice>0 && choice<8);
     }
 
-    for (int j = 0; j < 7; j++) {
-        printf("\t%s\n", options[j]);
+    for (int i = 0; i < 7; i++) {
+        printf("\t%d) %s\n",i+1, options[i]);
     }
 
     do {
         printf("\nSelect Option: ");
-        scanf("%d", &i);
-        if(isValid(i)) {
+        scanf("%d", &choice);
+        if(isValid(choice)) {
             printf("Invalid options! try again\n");
         }
-    } while(isValid(i));
-    switch (i) {
+    } while(isValid(choice));
+    switch (choice) {
     case 1:
-        info();
+        displayProfile();
         break;
     case 2:
-        seeBill();
+        displayBillOptions();
         break;
     case 3:
         mess();
         break;
     case 4:
-        room();
+        displayRoomOptions();
         break;
     case 5:
         security();
         break;
     case 6:
-        others();
+        displayStaff();
         break;
     case 7:
-        selectExit();
+        displayAuth();
         break;
     default:
         nothingExists();

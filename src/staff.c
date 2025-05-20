@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "staff.h"
+#include "../include/staff.h"
+#include "../include/display_options.h"
 
 typedef struct {
     char userId[20];
@@ -10,7 +11,45 @@ typedef struct {
     float hourRate;
 } Staff;
 
-void addStaff() {
+void displayStaffOptions()
+{
+    char *options[] = {"Add Staff", "Search staff by id","list staff", "Back"};
+    for(int i = 0; i<4; ++i) {
+        printf("%i) %s\n",i+1, options[i]);
+    }
+}
+
+void displayStaff()
+{
+    int is_staff_options_selected = 1;
+    while(is_staff_options_selected) {
+        displayStaffOptions();
+        int choice;
+        printf("Enter staff option: ");
+        scanf("%d",&choice);
+        switch (choice) {
+        case 1:
+            addStaff();
+            break;
+        case 2:
+            viewStaff();
+            break;
+        case 3:
+            listStaff();
+            break;
+        case 4:
+            printf("Exiting program.\n");
+            is_staff_options_selected = 0;
+            main_options();
+            break;
+        default:
+            printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+void addStaff()
+{
     Staff s;
     FILE *fp = fopen("staff.txt", "a");
 
@@ -32,7 +71,8 @@ void addStaff() {
     printf("Staff added successfully.\n");
 }
 
-void viewStaff() {
+void viewStaff()
+{
     char userId[20];
     Staff s;
     int found = 0;
@@ -63,7 +103,8 @@ void viewStaff() {
     fclose(fp);
 }
 
-void listStaff() {
+void listStaff()
+{
     Staff s;
     FILE *fp = fopen("staff.txt", "r");
 
@@ -72,10 +113,13 @@ void listStaff() {
         return;
     }
 
-    printf("\n--- List of Staff ---\n");
+    printf("--------------------------------------------------------------\n");
+    printf("%-15s %-15s %-10s %-10s\n", "Staff ID", "Joining", "Type", "Hourly Rate");
+    printf("--------------------------------------------------------------\n");
+
     while (fscanf(fp, "%s %s %c %f", s.userId, s.joining, &s.type, &s.hourRate) != EOF) {
-        printf("Staff ID: %s | Joining: %s | Type: %c | Rate: %.2f\n",
-               s.userId, s.joining, s.type, s.hourRate);
+        printf("%-15s %-15s %-10c %-10.2f\n", s.userId, s.joining, s.type, s.hourRate);
+        printf("--------------------------------------------------------------\n");
     }
 
     fclose(fp);

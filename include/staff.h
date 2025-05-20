@@ -4,6 +4,5 @@
 void addStaff();
 void viewStaff();
 void listStaff();
-
-#endif
+void displayStaff();
 #endif // STAFF_H_INCLUDED

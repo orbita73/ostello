@@ -31,58 +31,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<UnitsGlob directory="src" wildcard="" recursive="0" id="2178398971" addToProject="1" />
-		<Unit filename="include/AUTH.h">
+		<UnitsGlob directory="src" wildcard="" recursive="0" id="2178398971" addToProject="0" />
+		<Unit filename="include/auth.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/display_options.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/profile.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/auth.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/bill.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
 		<Unit filename="src/display_options">
 			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="src/display_options.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/exit.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/info.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/invalid.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/mess.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/others.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/room.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
-		</Unit>
-		<Unit filename="src/security.c">
-			<Option compilerVar="CC" />
-			<Option glob="2178398971" />
 		</Unit>
 		<Unit filename="work.txt">
 			<Option target="&lt;{~None~}&gt;" />

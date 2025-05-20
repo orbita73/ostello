@@ -12,6 +12,19 @@ struct User {
     char user_type;
     char password[50];
 };
+struct User current_user;
+struct User getCurrentUser(){
+    return current_user;
+}
+void showChoices(){
+    char* options[] = {"Sign Up","Log Up","Exit"};
+    printf("\t\tWelcome to Ostello\n\n");
+    printf("Menu:\n");
+    for(int i = 0;i<3;++i){
+        printf("\t%i. %s\n",i+1,options[i]);
+    }
+}
+
 
 void displaySignin()
 {
@@ -25,7 +38,7 @@ void displaySignup()
 
 void saveUserToFile(struct User new_user)
 {
-    FILE *file = fopen("users.txt", "a");
+    FILE *file = fopen("./data/auth/users.txt", "a");
     if (file == NULL) {
         printf("Error opening file for saving user data.\n");
         return;
@@ -46,7 +59,7 @@ void signUp()
     printf("Enter password: ");
     scanf("%s", new_user.password);
 
-    FILE *file = fopen("users.txt", "r");
+    FILE *file = fopen("./data/auth/users.txt", "r");
     if (file != NULL) {
         int max_id = 0;
         char line[200];
@@ -64,7 +77,7 @@ void signUp()
     }
 
     saveUserToFile(new_user);
-    printf("User %s %s signed up successfully!\n", new_user.first_name, new_user.last_name);
+    printf("User id=%i %s %s signed up successfully!\n",new_user.id, new_user.first_name, new_user.last_name);
 }
 
 void logIn()
@@ -76,7 +89,7 @@ void logIn()
     printf("Enter password: ");
     scanf("%s", password);
 
-    FILE *file = fopen("users.txt", "r");
+    FILE *file = fopen("./data/auth/users.txt", "r");
     if (file == NULL) {
         printf("Error opening file for login.\n");
         return;
@@ -89,6 +102,7 @@ void logIn()
         sscanf(line, "%d,%49[^,],%49[^,],%c,%49[^\n]", &temp_user.id, temp_user.first_name, temp_user.last_name, &temp_user.user_type, temp_user.password);
         if (temp_user.id == id &&
             strcmp(temp_user.password, password) == 0) {
+            current_user = temp_user;
             printf("Welcome back, %s %s!\n", temp_user.first_name, temp_user.last_name);
             found = 1;
             break;
@@ -97,6 +111,7 @@ void logIn()
 
     if (!found) {
         printf("Login failed. Incorrect credentials.\n");
+        showChoices();
     } else {
         main_options();
 
@@ -109,12 +124,8 @@ void logIn()
 void displayAuth()
 {
     int choice;
-    printf("\nMenu:\n");
-    printf("1. Sign Up\n");
-    printf("2. Log In\n");
-    printf("3. Exit\n");
-
-    while (1) {
+    showChoices();
+    while (1 && !getCurrentUser().id) {
     printf("Enter your choice: ");
     scanf("%d", &choice);
         switch (choice) {
