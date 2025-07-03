@@ -3,5 +3,4 @@
 
 void mess();
 
-#endif // MESS_H
-
+#endif

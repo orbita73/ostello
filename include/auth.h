@@ -1,24 +1,17 @@
-#ifndef AUTH_H_INCLUDED
-#define AUTH_H_INCLUDED
+#ifndef AUTH_H
+#define AUTH_H
 
-#define MAX_USERS 10
-#define PASSWORD_LENGTH 50
-
-struct User {
+typedef struct {
     int id;
-    char first_name[50];
-    char last_name[50];
     char user_type;
+    char username[50];
     char password[50];
-};
+} User;
 
-struct User getCurrentUser(void);
-void showChoices(void);
-void displaySignin(void);
-void displaySignup(void);
-void saveUserToFile(struct User new_user);
-void signUp(void);
-void logIn(void);
-void displayAuth(void);
+User getCurrentUser();
+void displayAuth();
+void login();
+void signup();
+int isLoggedIn();
 
-#endif // AUTH_H_INCLUDED
+#endif

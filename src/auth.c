@@ -1,147 +1,131 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include "../include/auth.h"
 #include "../include/display_options.h"
 
-#define MAX_USERS 10
-#define PASSWORD_LENGTH 50
+#define MAX_USERS 1000
+#define USER_FILE "./data/users.txt"
 
-struct User {
-    int id;
-    char first_name[50];
-    char last_name[50];
-    char user_type;
-    char password[50];
-};
-struct User current_user;
-struct User getCurrentUser(){
-    return current_user;
-}
-void showChoices(){
-    char* options[] = {"Sign Up","Log Up","Exit"};
-    printf("\t\tWelcome to Ostello\n\n");
-    printf("Menu:\n");
-    for(int i = 0;i<3;++i){
-        printf("\t%i. %s\n",i+1,options[i]);
-    }
-}
+static User current_user;
+static int logged_in = 0;
 
-
-void displaySignin()
+void readLine(char *buffer, int size)
 {
-    printf("Sign in\n");
+    fgets(buffer, size, stdin);
+    buffer[strcspn(buffer, "\n")] = 0;
 }
 
-void displaySignup()
+void signup()
 {
-    printf("Sign up view\n");
-}
-
-void saveUserToFile(struct User new_user)
-{
-    FILE *file = fopen("./data/auth/users.txt", "a");
-    if (file == NULL) {
-        printf("Error opening file for saving user data.\n");
-        return;
-    }
-    fprintf(file, "%d,%s,%s,%c,%s\n", new_user.id, new_user.first_name, new_user.last_name, new_user.user_type, new_user.password);
-    fclose(file);
-}
-
-void signUp()
-{
-    struct User new_user;
-    printf("Enter first name: ");
-    scanf("%s", new_user.first_name);
-    printf("Enter last name: ");
-    scanf("%s", new_user.last_name);
-    printf("Enter user type (A/B/C): ");
-    scanf(" %c", &new_user.user_type);
-    printf("Enter password: ");
-    scanf("%s", new_user.password);
-
-    FILE *file = fopen("./data/auth/users.txt", "r");
-    if (file != NULL) {
-        int max_id = 0;
-        char line[200];
-        while (fgets(line, sizeof(line), file)) {
-            int id;
-            sscanf(line, "%d", &id);
-            if (id > max_id) {
-                max_id = id;
-            }
+    User users[MAX_USERS];
+    int user_count = 0;
+    FILE *file = fopen(USER_FILE, "r");
+    if (file) {
+        while (fscanf(file, "%d,%c,%[^,],%[^\n]\n", &users[user_count].id, &users[user_count].user_type, users[user_count].username, users[user_count].password) == 4) {
+            user_count++;
         }
         fclose(file);
-        new_user.id = max_id + 1;
-    } else {
-        new_user.id = 1;
     }
-
-    saveUserToFile(new_user);
-    printf("User id=%i %s %s signed up successfully!\n",new_user.id, new_user.first_name, new_user.last_name);
-}
-
-void logIn()
-{
-    int id;
-    char password[50];
-    printf("Enter ID: ");
-    scanf("%d", &id);
-    printf("Enter password: ");
-    scanf("%s", password);
-
-    FILE *file = fopen("./data/auth/users.txt", "r");
-    if (file == NULL) {
-        printf("Error opening file for login.\n");
+    User new_user;
+    new_user.id = user_count + 1;
+    printf("Enter user type (A for Admin, U for User): ");
+    scanf(" %c", &new_user.user_type);
+    getchar();
+    if (new_user.user_type != 'A' && new_user.user_type != 'U') {
+        printf("Invalid user type! Must be A or U.\n");
         return;
     }
-
-    char line[200];
-    int found = 0;
-    while (fgets(line, sizeof(line), file)) {
-        struct User temp_user;
-        sscanf(line, "%d,%49[^,],%49[^,],%c,%49[^\n]", &temp_user.id, temp_user.first_name, temp_user.last_name, &temp_user.user_type, temp_user.password);
-        if (temp_user.id == id &&
-            strcmp(temp_user.password, password) == 0) {
-            current_user = temp_user;
-            printf("Welcome back, %s %s!\n", temp_user.first_name, temp_user.last_name);
-            found = 1;
-            break;
+    printf("Enter username: ");
+    readLine(new_user.username, sizeof(new_user.username));
+    for (int i = 0; i < user_count; i++) {
+        if (strcmp(new_user.username, users[i].username) == 0) {
+            printf("Username already exists!\n");
+            return;
         }
     }
+    printf("Enter password: ");
+    readLine(new_user.password, sizeof(new_user.password));
+    file = fopen(USER_FILE, "a");
+    if (!file) {
+        printf("Error opening users.txt\n");
+        return;
+    }
+    fprintf(file, "%d,%c,%s,%s\n", new_user.id, new_user.user_type, new_user.username, new_user.password);
+    fclose(file);
+    printf("Signup successful! User ID: %d\n", new_user.id);
+}
 
-    if (!found) {
-        printf("Login failed. Incorrect credentials.\n");
-        showChoices();
-    } else {
-        main_options();
-
+void login()
+{
+    char username[50], password[50];
+    printf("Enter username: ");
+    readLine(username, sizeof(username));
+    printf("Enter password: ");
+    readLine(password, sizeof(password));
+    FILE *file = fopen(USER_FILE, "r");
+    if (!file) {
+        printf("Error opening users.txt\n");
+        return;
+    }
+    User user;
+    while (fscanf(file, "%d,%c,%[^,],%[^\n]\n", &user.id, &user.user_type, user.username, user.password) == 4) {
+        if (strcmp(username, user.username) == 0 && strcmp(password, user.password) == 0) {
+            current_user = user;
+            logged_in = 1;
+            printf("Login successful! Welcome, %s\n", user.username);
+            fclose(file);
+            main_options();
+            return;
+        }
     }
     fclose(file);
+    printf("Invalid username or password\n");
+}
 
+void logout()
+{
+    if (!logged_in) {
+        printf("No user is currently logged in\n");
+        return;
+    }
+    logged_in = 0;
+    memset(&current_user, 0, sizeof(User));
+    printf("Logged out successfully\n");
+}
 
+int isLoggedIn()
+{
+    return logged_in;
+}
+
+User getCurrentUser()
+{
+    return current_user;
 }
 
 void displayAuth()
 {
     int choice;
-    showChoices();
-    while (1 && !getCurrentUser().id) {
-    printf("Enter your choice: ");
-    scanf("%d", &choice);
+    while (1) {
+        printf("\nHostel Management System\n");
+        printf("1) Login\n");
+        printf("2) Signup\n");
+        printf("3) Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();
         switch (choice) {
-        case 1:
-            displaySignup();
-            signUp();
-            break;
-        case 2:
-            displaySignin();
-            logIn();
-            break;
-        case 3:
-            printf("Exiting program.\n");
-            return;
-        default:
-            printf("Invalid choice. Please try again.\n");
+            case 1:
+                login();
+                break;
+            case 2:
+                signup();
+                break;
+            case 3:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
         }
     }
 }

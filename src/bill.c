@@ -125,4 +125,3 @@ void createMonthlyBill()
 
     printf("Monthly bill for %s has been saved to %s\n", month, billFilename);
 }
-

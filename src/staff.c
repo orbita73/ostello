@@ -1,126 +1,134 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "../include/staff.h"
 #include "../include/display_options.h"
+#include "../include/auth.h"
+
+#define MAX_STAFF 1000
+#define STAFF_FILE "./data/staff.txt"
 
 typedef struct {
-    char userId[20];
-    char joining[20];
-    char type;
-    float hourRate;
+    char name[100];
+    char role[100];
+    char contact[100];
 } Staff;
 
-void displayStaffOptions()
+void ensureStaffDirectoryExists()
 {
-    char *options[] = {"Add Staff", "Search staff by id","list staff", "Back"};
-    for(int i = 0; i<4; ++i) {
-        printf("%i) %s\n",i+1, options[i]);
+    struct stat st = {0};
+    if (stat("./data", &st) == -1) {
+        mkdir("./data", 0700);
     }
 }
 
-void displayStaff()
+static void readLine(char *buffer, int size)
 {
-    int is_staff_options_selected = 1;
-    while(is_staff_options_selected) {
-        displayStaffOptions();
-        int choice;
-        printf("Enter staff option: ");
-        scanf("%d",&choice);
-        switch (choice) {
-        case 1:
-            addStaff();
-            break;
-        case 2:
-            viewStaff();
-            break;
-        case 3:
-            listStaff();
-            break;
-        case 4:
-            printf("Exiting program.\n");
-            is_staff_options_selected = 0;
-            main_options();
-            break;
-        default:
-            printf("Invalid choice. Please try again.\n");
-        }
-    }
+    fgets(buffer, size, stdin);
+    buffer[strcspn(buffer, "\n")] = 0;
 }
 
 void addStaff()
 {
-    Staff s;
-    FILE *fp = fopen("staff.txt", "a");
-
-    if (!fp) {
-        printf("Error opening staff.txt!\n");
+    if (!isLoggedIn()) {
+        printf("Please log in first\n");
+        displayAuth();
         return;
     }
-
-    printf("Enter Staff ID: ");
-    scanf("%s", s.userId);
-    printf("Enter Joining Date (dd-mm-yyyy): ");
-    scanf("%s", s.joining);
-    s.type = 'c';  // default
-    printf("Enter Hourly Rate: ");
-    scanf("%f", &s.hourRate);
-
-    fprintf(fp, "%s %s %c %.2f\n", s.userId, s.joining, s.type, s.hourRate);
-    fclose(fp);
-    printf("Staff added successfully.\n");
+    User current_user = getCurrentUser();
+    if (current_user.user_type != 'A') {
+        printf("Access denied: Only admins can add staff\n");
+        return;
+    }
+    Staff s;
+    printf("Enter staff name: ");
+    readLine(s.name, sizeof(s.name));
+    printf("Enter staff role: ");
+    readLine(s.role, sizeof(s.role));
+    printf("Enter staff contact: ");
+    readLine(s.contact, sizeof(s.contact));
+    ensureStaffDirectoryExists();
+    FILE *file = fopen(STAFF_FILE, "a");
+    if (!file) {
+        printf("Error opening staff.txt\n");
+        return;
+    }
+    fprintf(file, "%s,%s,%s\n", s.name, s.role, s.contact);
+    fclose(file);
+    printf("Staff %s added successfully\n", s.name);
 }
 
 void viewStaff()
 {
-    char userId[20];
-    Staff s;
-    int found = 0;
-
-    printf("Enter Staff ID to view: ");
-    scanf("%s", userId);
-
-    FILE *fp = fopen("staff.txt", "r");
-
-    if (!fp) {
-        printf("Error opening staff.txt!\n");
+    if (!isLoggedIn()) {
+        printf("Please log in first\n");
+        displayAuth();
         return;
     }
-
-    while (fscanf(fp, "%s %s %c %f", s.userId, s.joining, &s.type, &s.hourRate) != EOF) {
-        if (strcmp(userId, s.userId) == 0) {
-            printf("Staff ID: %s\nJoining Date: %s\nType: %c\nHourly Rate: %.2f\n",
-                   s.userId, s.joining, s.type, s.hourRate);
-            found = 1;
-            break;
-        }
+    User current_user = getCurrentUser();
+    if (current_user.user_type != 'A') {
+        printf("Access denied: Only admins can view staff\n");
+        return;
     }
-
-    if (!found) {
-        printf("Staff not found.\n");
+    FILE *file = fopen(STAFF_FILE, "r");
+    if (!file) {
+        printf("Error opening staff.txt\n");
+        return;
     }
-
-    fclose(fp);
+    char line[256];
+    printf("\nStaff List:\n");
+    printf("------------------------------------\n");
+    printf("%-20s %-20s %-20s\n", "Name", "Role", "Contact");
+    printf("------------------------------------\n");
+    while (fgets(line, sizeof(line), file)) {
+        Staff s;
+        sscanf(line, "%[^,],%[^,],%[^\n]", s.name, s.role, s.contact);
+        printf("%-20s %-20s %-20s\n", s.name, s.role, s.contact);
+    }
+    fclose(file);
 }
 
-void listStaff()
+void displayStaff()
 {
-    Staff s;
-    FILE *fp = fopen("staff.txt", "r");
-
-    if (!fp) {
-        printf("Error opening staff.txt!\n");
+    if (!isLoggedIn()) {
+        printf("Please log in first\n");
+        displayAuth();
         return;
     }
-
-    printf("--------------------------------------------------------------\n");
-    printf("%-15s %-15s %-10s %-10s\n", "Staff ID", "Joining", "Type", "Hourly Rate");
-    printf("--------------------------------------------------------------\n");
-
-    while (fscanf(fp, "%s %s %c %f", s.userId, s.joining, &s.type, &s.hourRate) != EOF) {
-        printf("%-15s %-15s %-10c %-10.2f\n", s.userId, s.joining, s.type, s.hourRate);
-        printf("--------------------------------------------------------------\n");
+    User current_user = getCurrentUser();
+    if (current_user.user_type != 'A') {
+        printf("Access denied: Only admins can access staff management\n");
+        return;
     }
-
-    fclose(fp);
+    char *options[] = {"Add Staff", "View Staff", "Back to Main Menu"};
+    int is_staff_selected = 1;
+    while (is_staff_selected) {
+        printf("\nStaff Management Menu:\n");
+        for (int i = 0; i < 3; ++i) {
+            printf("\t%i) %s\n", i+1, options[i]);
+        }
+        int choice;
+        printf("Enter choice: ");
+        scanf("%i", &choice);
+        getchar();
+        if (choice < 1 || choice > 3) {
+            printf("Invalid option selected\n");
+            continue;
+        }
+        switch (choice) {
+            case 1:
+                addStaff();
+                break;
+            case 2:
+                viewStaff();
+                break;
+            case 3:
+                is_staff_selected = 0;
+                main_options();
+                break;
+        }
+    }
 }

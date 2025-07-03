@@ -1,6 +1,6 @@
 #ifndef OTHERS_H
 #define OTHERS_H
 
-void others();
+void nothingExists();
 
-#endif // OTHERS_H
+#endif

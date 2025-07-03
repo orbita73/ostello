@@ -1,6 +1,6 @@
 #ifndef EXIT_H
 #define EXIT_H
 
-void selectExit();
+void displayAuth();
 
-#endif // EXIT_H
+#endif

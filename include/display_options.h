@@ -1,6 +1,10 @@
-#ifndef DISPLAY_OPTIONS_H_INCLUDED
-#define DISPLAY_OPTIONS_H_INCLUDED
+#ifndef DISPLAY_OPTIONS_H
+#define DISPLAY_OPTIONS_H
+
 void main_options();
+void displayBillOptions();
+void displayRoomOptions();
+void displayStaff();
+void displayPaymentOptions();
 
-
-#endif // DISPLAY_OPTIONS_H_INCLUDED
+#endif

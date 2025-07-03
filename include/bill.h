@@ -2,7 +2,7 @@
 #define BILL_H
 
 void displayBillOptions();
-void createMonthlyBill();
 void viewMonthlyBill();
+void createMonthlyBill();
 
-#endif // BILL_H
+#endif

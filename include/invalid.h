@@ -3,4 +3,4 @@
 
 void nothingExists();
 
-#endif // INVALID_H
+#endif
